@@ -1,0 +1,61 @@
+# =========================
+# Frontend (Vue/Vite)
+# =========================
+
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.DS_Store
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Environment files
+frontend/.env
+frontend/.env.*
+
+# IDE files
+.vscode/
+.idea/
+
+# =========================
+# Backend (Flask)
+# =========================
+
+backend/__pycache__/
+backend/**/*.pyc
+backend/*.pyc
+backend/*.pyo
+
+# Virtual environment
+backend/venv/
+backend/env/
+backend/.venv/
+
+# Flask instance files
+backend/instance/
+
+# Database files
+backend/*.db
+backend/instance/*.db
+backend/*.sqlite
+backend/*.sqlite3
+
+# Environment variables
+backend/.env
+
+# =========================
+# OS generated files
+# =========================
+
+Thumbs.db
+.DS_Store
+
+# =========================
+# Misc
+# =========================
+
+*.log
+*.tmp
+*.swp
