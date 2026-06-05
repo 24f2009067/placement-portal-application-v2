@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark sticky-top border-bottom border-2 py-3">
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top border-bottom border-2 py-3 bg-body">
     <div class="container-fluid">
       <!-- Logo -->
       <a class="navbar-brand d-flex align-items-center" href="#">
@@ -57,7 +57,7 @@
 
               <ul class="dropdown-menu dropdown-menu-end">
                 <li>
-                  <a class="dropdown-item" href="#"> Profile </a>
+                  <a class="dropdown-item" href="#" @click.prevent="toProfile"> Profile </a>
                 </li>
 
                 <li>
@@ -67,7 +67,7 @@
                 <li><hr class="dropdown-divider" /></li>
 
                 <li>
-                  <a class="dropdown-item text-danger" href="#"> Logout </a>
+                  <a class="dropdown-item text-danger" @click.prevent="logOut" href="#"> Logout </a>
                 </li>
               </ul>
             </li>
@@ -79,3 +79,21 @@
 </template>
 
 <style scoped></style>
+
+<script setup>
+  import { useRouter } from 'vue-router';
+  let router = useRouter()
+
+  function logOut(){
+    localStorage.clear()
+    router.push("/");
+  }
+
+  function toProfile(){
+    let role = localStorage.getItem("role");
+    if (role){
+      router.push(`/${role}/profile`)
+    }
+
+  }
+</script>

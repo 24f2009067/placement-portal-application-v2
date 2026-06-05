@@ -180,6 +180,8 @@ async function handleLogin() {
     localStorage.setItem("id", res.id)
     localStorage.setItem("role", res.role)
     localStorage.setItem("access_token", res.access_token)
+    localStorage.setItem("email", email)
+    localStorage.setItem("profile_complete", res.profile_complete)
 
     router.push(`/${res.role}`);
   }

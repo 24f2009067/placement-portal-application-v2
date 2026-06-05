@@ -96,13 +96,24 @@ class LoginUser(Resource):
                 "message": "Admin approval pending"
             }
         
+        profile_complete = True
+
+        if user.role == "student":
+            if not user.student:
+                profile_complete = False
+
+        elif user.role == "company":
+            if not user.company:
+                profile_complete = False
+        
         access_token = create_access_token(identity=str(user.user_id))
         return {
             "status": "success",
-            "message": "User loggin in successful!",
+            "message": "User login in successful!",
             "role": user.role,
             "id": user.user_id,
-            "access_token" : access_token
+            "access_token" : access_token,
+            "profile_complete": profile_complete
         }, 200
 
 

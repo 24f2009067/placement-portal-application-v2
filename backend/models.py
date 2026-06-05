@@ -24,13 +24,13 @@ class Student(db.Model):
     student_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), unique=True, nullable=False)
 
-    name = db.Column(db.String(30))
+    name = db.Column(db.String(30), nullable=False)
     skills = db.Column(db.String(200))
-    dept = db.Column(db.String(30))
-    course = db.Column(db.String(30))
-    cgpa = db.Column(db.Numeric(3, 2))
-    graduation_year = db.Column(db.Integer)
-    backlog_count = db.Column(db.Integer)
+    dept = db.Column(db.String(30), nullable=False)
+    course = db.Column(db.String(30), nullable=False)
+    cgpa = db.Column(db.Numeric(3, 2), nullable=False)
+    graduation_year = db.Column(db.Integer, nullable=False)
+    backlog_count = db.Column(db.Integer, nullable=False)
     resume = db.Column(db.String(255))
 
     applications = db.relationship("Application", backref="student")
@@ -40,7 +40,7 @@ class Company(db.Model):
     company_id = db.Column(db.Integer, primary_key=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), unique=True, nullable=False)
 
-    name = db.Column(db.String(30))
+    name = db.Column(db.String(30), nullable=False)
     industry = db.Column(db.String(50))
     location = db.Column(db.String(150))
     website = db.Column(db.String(150))

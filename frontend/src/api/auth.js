@@ -40,7 +40,7 @@ export async function register(email, password, role) {
     return {
       status: 'error',
       message: 'Unable to connect to server',
-      error: err
+      error: err,
     }
   }
 }
@@ -48,33 +48,63 @@ export async function register(email, password, role) {
 // login
 
 export async function login(email, password) {
-  try{
-    let res = await fetch(`${API_URL}/api/auth/login`,{
-      method: "POST",
+  try {
+    let res = await fetch(`${API_URL}/api/auth/login`, {
+      method: 'POST',
       headers: {
-        "content-type": "application/json"
+        'content-type': 'application/json',
       },
       body: JSON.stringify({
-        "email": email,
-        "password": password
-      })
+        email: email,
+        password: password,
+      }),
     })
 
     let data = await res.json()
-    if (res.status == 400){
+    if (res.status == 400) {
       return {
-        status: "error",
-        message: Object.values(data.message)[0]
+        status: 'error',
+        message: Object.values(data.message)[0],
       }
     }
 
-    return data;
-
-  } catch(err){
+    return data
+  } catch (err) {
     return {
       status: 'error',
       message: 'Unable to connect to server',
-      error: err
+      error: err,
     }
   }
 }
+
+// about
+
+// export async function isProfileComplete() {
+
+//   let access_token = localStorage.getItem("access_token")
+//   if (!access_token){
+//     return {
+//       status: "error",
+//       message: "No accesstoken in local storage"
+//     }
+//   }
+
+//   try {
+//     let res = fetch(`${API_URL}/auth/users`, {
+//       method: 'get',
+//       headers: {
+//         Authorization: `Bearer ${access_token}`
+//       }
+//     })
+
+//     data = res.
+
+//   } catch (err) {
+//     return {
+//       status: 'error',
+//       message: 'Unable to connect to server',
+//       error: err,
+//     }
+//   }
+// }
