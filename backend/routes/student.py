@@ -116,7 +116,7 @@ class Student(Resource):
         return {
             "status": "success",
             "message": "student profile updated"
-        }
+        }, 200
 
 
 @student_bp.route("/resume/<int:id>")

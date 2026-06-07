@@ -69,6 +69,8 @@ export async function setProfile(formData) {
         return data
     }
 
+    console.log(data)
+
   } catch (err) {
     return {
       status: 'error',

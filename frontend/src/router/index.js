@@ -62,7 +62,7 @@ const router = createRouter({
         {
           path: '',
           name: 'companyDashboard',
-          companent: CompanyDashboard,
+          component: CompanyDashboard,
           meta: {
             title: 'Company Dashboard - RecruitX',
           },
