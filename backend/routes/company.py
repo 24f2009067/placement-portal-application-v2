@@ -84,4 +84,4 @@ class Company(Resource):
 
 
 
-company_api.add_resource(Company, "/")
+company_api.add_resource(Company, "")

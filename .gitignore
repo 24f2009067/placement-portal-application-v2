@@ -45,6 +45,9 @@ backend/*.sqlite3
 # Environment variables
 backend/.env
 
+# resume uplads
+backend/uplads/
+
 # =========================
 # OS generated files
 # =========================

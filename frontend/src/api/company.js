@@ -10,7 +10,7 @@ export async function getCompanyProfile() {
       }
     }
 
-    const res = await fetch(`${API_URL}/api/company/`, {
+    const res = await fetch(`${API_URL}/api/company`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${access_token}`,
@@ -53,7 +53,7 @@ export async function setProfile(profile) {
       }
     }
 
-    const res = await fetch(`${API_URL}/api/company/`, {
+    const res = await fetch(`${API_URL}/api/company`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${access_token}`,

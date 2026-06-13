@@ -10,7 +10,7 @@ export async function getStudentProfile() {
       }
     }
 
-    const res = await fetch(`${API_URL}/api/students/`, {
+    const res = await fetch(`${API_URL}/api/students`, {
       headers: {
         Authorization: `Bearer ${access_token}`,
       },
@@ -56,7 +56,7 @@ export async function setProfile(formData) {
       }
     }
 
-    const res = await fetch(`${API_URL}/api/students/`, {
+    const res = await fetch(`${API_URL}/api/students`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${access_token}`,

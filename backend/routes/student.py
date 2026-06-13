@@ -139,4 +139,4 @@ def get_resume(id):
     }, 404
 
 
-student_api.add_resource(Student, "/")
+student_api.add_resource(Student, "")
