@@ -136,6 +136,7 @@
 <script setup>
 const API_URL = import.meta.env.VITE_API_URL
 import { getStudentProfile, setProfile } from '@/api/student'
+import { showToast } from '@/toast'
 import { onMounted, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -196,6 +197,7 @@ async function handleProfileSubmit() {
   const res = await setProfile(formData)
   if (res.status === 'success') {
     localStorage.setItem('profile_complete', true)
+    showToast("Student Dashboard", "Profile saved!");
     router.push({ name: 'studentDashboard' })
   }
 }
@@ -204,3 +206,9 @@ function getResume(){
   window.open(`${API_URL}/api/students/resume/${profile.student_id}`)
 }
 </script>
+
+<style scoped>
+.card{
+  border: none;
+}
+</style>

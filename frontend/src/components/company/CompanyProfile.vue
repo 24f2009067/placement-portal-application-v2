@@ -21,14 +21,25 @@
                 <label for="industry" class="form-label"
                   >Industry<span class="text-danger">*</span></label
                 >
-                <input id="industry" type="text" class="form-control required" v-model="profile.industry" />
+                <input
+                  id="industry"
+                  type="text"
+                  class="form-control required"
+                  v-model="profile.industry"
+                />
               </div>
 
               <div class="mb-3">
                 <label for="location" class="form-label"
                   >Location<span class="text-danger">*</span></label
                 >
-                <textarea id="location" class="form-control" rows="3" required v-model="profile.location" ></textarea>
+                <textarea
+                  id="location"
+                  class="form-control"
+                  rows="3"
+                  required
+                  v-model="profile.location"
+                ></textarea>
               </div>
 
               <div class="mb-3">
@@ -52,8 +63,11 @@ import { getCompanyProfile, setProfile } from '@/api/company'
 import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
 import { reactive } from 'vue'
+import { showToast } from '@/toast'
+import { api } from '@/api/utility'
+const API_URL = import.meta.env.VITE_API_URL
 
-const router = useRouter();
+const router = useRouter()
 
 const profile = reactive({
   email: '',
@@ -83,7 +97,22 @@ async function handleProfileSubmit() {
   const res = await setProfile(profile)
   if (res.status === 'success') {
     localStorage.setItem('profile_complete', true)
+    showToast('Company Dashboard', 'Profile saved!')
+
+    try {
+      const data = await api(`${API_URL}/api/auth/users`)
+      localStorage.setItem('access_token', data.access_token)
+    } catch (err) {
+      console.log(err)
+    }
+
     router.push({ name: 'companyDashboard' })
   }
 }
 </script>
+
+<style scoped>
+  .card{
+    border: none;
+  }
+</style>

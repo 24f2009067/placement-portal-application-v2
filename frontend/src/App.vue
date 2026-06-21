@@ -1,10 +1,16 @@
 <template>
   <div class="d-flex flex-column min-vh-100">
     <router-view />
+    <toast-container />
   </div>
 </template>
 
-<style scoped></style>
+<style>
+.card{
+  border: 0.2rem solid rgba(255, 255, 255, 0.1);
+}
+</style>
 
 <script setup>
+import ToastContainer from './components/shared/ToastContainer.vue';
 </script>

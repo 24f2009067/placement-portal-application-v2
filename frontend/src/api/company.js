@@ -1,14 +1,10 @@
+import { showToast } from "@/toast"
+
 const API_URL = import.meta.env.VITE_API_URL
 
 export async function getCompanyProfile() {
   try {
-    const access_token = localStorage.getItem('access_token')
-    if (!access_token) {
-      return {
-        status: 'error',
-        message: 'access_token not found',
-      }
-    }
+    let access_token = getAccessToken()
 
     const res = await fetch(`${API_URL}/api/company`, {
       method: 'GET',
@@ -35,6 +31,7 @@ export async function getCompanyProfile() {
 
     return data
   } catch (err) {
+    showToast("Admin Dashboard", err.message || "Something went wrong!");
     return {
       status: 'error',
       message: 'Unable to connect to server',
@@ -45,13 +42,7 @@ export async function getCompanyProfile() {
 
 export async function setProfile(profile) {
   try {
-    const access_token = localStorage.getItem('access_token')
-    if (!access_token) {
-      return {
-        status: 'error',
-        message: 'access_token not found',
-      }
-    }
+    let access_token = getAccessToken()
 
     const res = await fetch(`${API_URL}/api/company`, {
       method: 'POST',
@@ -74,10 +65,22 @@ export async function setProfile(profile) {
 
     console.log(data)
   } catch (err) {
+    showToast("Admin Dashboard", err.message || "Something went wrong!");
     return {
       status: 'error',
       message: 'Unable to connect to server',
       error: err,
     }
   }
+}
+
+
+// utitities
+
+function getAccessToken() {
+  const access_token = localStorage.getItem('access_token')
+  if (!access_token) {
+    throw({message: "Unauthorised user! Relogin to contine."})
+  }
+  return access_token
 }

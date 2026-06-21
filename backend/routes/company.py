@@ -73,7 +73,7 @@ class Company(Resource):
             models.db.session.commit()
 
         else:
-            company = models.Company(user_id=user_id, name=name, industry=industry, location=location, website=website, status="Approved")
+            company = models.Company(user_id=user_id, name=name, industry=industry, location=location, website=website, status="pending")
             models.db.session.add(company)
             models.db.session.commit()
 

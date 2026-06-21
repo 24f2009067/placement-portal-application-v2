@@ -7,7 +7,7 @@ class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password_hash = db.Column(db.String(256), nullable=False)
-    role = db.Column(db.String(30), nullable=False) # Admin / Student / Company
+    role = db.Column(db.String(30), nullable=False) # admin / student / company
     created_on = db.Column(db.DateTime, nullable=False, default=datetime.now)
     is_active = db.Column(db.Boolean, nullable=False, default=True)
 
@@ -44,7 +44,7 @@ class Company(db.Model):
     industry = db.Column(db.String(50))
     location = db.Column(db.String(150))
     website = db.Column(db.String(150))
-    status = db.Column(db.String(30), nullable=False, default="Pending") # Pending / Approved / Rejected
+    status = db.Column(db.String(30), nullable=False, default="pending") # approved / removed
 
     drives = db.relationship("Drive", backref="company")
 
@@ -60,7 +60,7 @@ class Drive(db.Model):
     required_skills = db.Column(db.String(300))
     deadline = db.Column(db.Date, nullable=False)
     created_on = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    status = db.Column(db.String(30), nullable=False, default="Approved") # Approved / Closed / Blacklisted
+    status = db.Column(db.String(30), nullable=False, default="pending") # pending / approved / closed / removed
 
     applications = db.relationship('Application', backref="drive")
 
@@ -68,7 +68,7 @@ class Application(db.Model):
     application_id = db.Column(db.Integer, primary_key=True, nullable=False)
     drive_id = db.Column(db.Integer, db.ForeignKey('drive.drive_id'), nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey('student.student_id'), nullable=False)
-    current_status = db.Column(db.String(50), nullable=False)
+    current_status = db.Column(db.String(50), nullable=False, default="applied") # applied / rejected / selected / shortlisted / drive_removed / company_removed / student_removed
     created_on = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     application_status = db.relationship("ApplicationStatus", backref="application")
@@ -81,7 +81,7 @@ class Application(db.Model):
 class ApplicationStatus(db.Model):
     application_status_id = db.Column(db.Integer, primary_key=True, nullable=False)
     application_id = db.Column(db.Integer, db.ForeignKey("application.application_id"), nullable=False)
-    status = db.Column(db.String(30), nullable=False, default="Applied") # Applied / Rejected / Selected
+    status = db.Column(db.String(30), nullable=False, default="applied") # applied / rejected / selected / shortlisted / drive_removed / company_removed
     created_on = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
 
@@ -107,7 +107,7 @@ class Placement(db.Model):
 class Interview(db.Model):
     interview_id = db.Column(db.Integer, primary_key=True, nullable=False)
     application_id = db.Column(db.Integer, db.ForeignKey("application.application_id"), nullable=False)
-    type = db.Column(db.String(50), nullable=False) # Online / Offline
+    type = db.Column(db.String(50), nullable=False) # online / offline
     feedback = db.Column(db.String(300))
     scheduled_at = db.Column(db.DateTime, nullable=False)
     location = db.Column(db.String(300))

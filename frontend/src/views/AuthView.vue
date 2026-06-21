@@ -130,6 +130,7 @@
 import { ref, reactive } from 'vue'
 import { register, login } from '@/api/auth'
 import { useRouter } from 'vue-router'
+import { showToast } from '@/toast';
 
 let router = useRouter();
 
@@ -161,6 +162,8 @@ async function handleRegister() {
   regStatus.value = res.status
 }
 
+// login
+
 let loginMsg = ref('')
 let loginStatus = ref('')
 
@@ -183,10 +186,15 @@ async function handleLogin() {
     localStorage.setItem("email", email)
     localStorage.setItem("profile_complete", res.profile_complete)
 
+    showToast("", `Login Successful!`)
     router.push(`/${res.role}`);
   }
 
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.card{
+  border: none;
+}
+</style>

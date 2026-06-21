@@ -38,9 +38,9 @@
         <!-- Right Section -->
         <div class="d-flex align-items-center gap-3">
           <!-- Search -->
-          <form role="search">
+          <form role="search" @submit.prevent="$emit('search', searchTerm)">
             <div class="input-group">
-              <input class="form-control" type="search" placeholder="Search" />
+              <input class="form-control" type="search" v-model="searchTerm" placeholder="Search"/>
               <span class="input-group-text">
                 <i class="bi bi-search"></i>
               </span>
@@ -81,7 +81,8 @@
 <style scoped></style>
 
 <script setup>
-  import { useRouter } from 'vue-router';
+  import { ref } from 'vue';
+import { useRouter } from 'vue-router';
   let router = useRouter()
 
   function logOut(){
@@ -91,9 +92,11 @@
 
   function toProfile(){
     let role = localStorage.getItem("role");
-    if (role){
+    if (role && role != "admin"){
       router.push(`/${role}/profile`)
     }
 
   }
+
+  const searchTerm = ref("")
 </script>

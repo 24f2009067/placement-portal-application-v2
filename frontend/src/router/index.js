@@ -10,6 +10,7 @@ import StudentProfile from '@/components/student/StudentProfile.vue'
 
 import CompanyDashboard from '@/components/company/CompanyDashboard.vue'
 import CompanyProfile from '@/components/company/CompanyProfile.vue'
+import { showToast } from '@/toast'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -87,7 +88,7 @@ router.beforeEach((to, from) => {
 })
 
 // auth on page route (all roles)
-router.beforeEach((to, from) => {
+router.beforeEach(async (to, from) => {
   let access_token = localStorage.getItem('access_token')
   let role = localStorage.getItem('role')
 
@@ -97,6 +98,25 @@ router.beforeEach((to, from) => {
 
   if (!to.path.startsWith(`/${role}`) && to.path !== '/') {
     return { name: 'auth' }
+  }
+  if (to.path !== '/') {
+    if (access_token) {
+      try {
+        const access_token = localStorage.getItem('access_token')
+        const payload = access_token.split('.')[1]
+        const data = JSON.parse(atob(payload))
+
+        if (data.role === 'student' || data.role === 'company') {
+          if (data.profile_complete && !data.is_active) {
+            showToast('Authentication', 'Contact admin for approval!')
+            return { name: 'auth' }
+          }
+        }
+      } catch (err) {
+        console.log(err)
+        return { name: 'auth' }
+      }
+    }
   }
 })
 

@@ -58,12 +58,20 @@ class User(Resource):
                 if not user.company:
                     profile_complete = False
 
+            access_token = create_access_token(
+                identity=str(user.user_id),
+                additional_claims={
+                    "role": user.role,
+                    "profile_complete": profile_complete,
+                    "is_active": user.is_active
+                }
+                )
+
             return {
                 "status": "success",
                 "message": "user found",
                 "user_id": user.user_id,
-                "role": user.role,
-                "profile_complete": profile_complete
+                "access_token": access_token
             }, 200
         
         return {
@@ -90,11 +98,11 @@ class LoginUser(Resource):
                 "message": "User email or password incorrect"
             }, 401
         
-        if (user.role == "company" and not user.is_active):
-            return {
-                "status": "error",
-                "message": "Admin approval pending"
-            }
+        # if (user.role == "company" and not user.is_active):
+        #     return {
+        #         "status": "error",
+        #         "message": "Admin approval pending"
+        #     }
         
         profile_complete = True
 
@@ -106,7 +114,14 @@ class LoginUser(Resource):
             if not user.company:
                 profile_complete = False
         
-        access_token = create_access_token(identity=str(user.user_id))
+        access_token = create_access_token(
+            identity=str(user.user_id),
+            additional_claims={
+                "role": user.role,
+                "profile_complete": profile_complete,
+                "is_active": user.is_active
+            }
+            )
         return {
             "status": "success",
             "message": "User login in successful!",

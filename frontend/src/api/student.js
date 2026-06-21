@@ -1,14 +1,10 @@
+import { showToast } from "@/toast"
+
 const API_URL = import.meta.env.VITE_API_URL
 
 export async function getStudentProfile() {
   try {
-    const access_token = localStorage.getItem('access_token')
-    if (!access_token) {
-      return {
-        status: 'error',
-        message: 'access_token not found',
-      }
-    }
+    let access_token = getAccessToken()
 
     const res = await fetch(`${API_URL}/api/students`, {
       headers: {
@@ -38,6 +34,7 @@ export async function getStudentProfile() {
 
     return data
   } catch (err) {
+    showToast("Admin Dashboard", err.message || "Something went wrong!");
     return {
       status: 'error',
       message: 'Unable to connect to server',
@@ -48,13 +45,7 @@ export async function getStudentProfile() {
 
 export async function setProfile(formData) {
   try {
-    const access_token = localStorage.getItem('access_token')
-    if (!access_token) {
-      return {
-        status: 'error',
-        message: 'access_token not found',
-      }
-    }
+    let access_token = getAccessToken()
 
     const res = await fetch(`${API_URL}/api/students`, {
       method: 'POST',
@@ -72,10 +63,21 @@ export async function setProfile(formData) {
     console.log(data)
 
   } catch (err) {
+    showToast("Admin Dashboard", err.message || "Something went wrong!");
     return {
       status: 'error',
       message: 'Unable to connect to server',
       error: err,
     }
   }
+}
+
+// utitities
+
+function getAccessToken() {
+  const access_token = localStorage.getItem('access_token')
+  if (!access_token) {
+    throw({message: "Unauthorised user! Relogin to contine."})
+  }
+  return access_token
 }
