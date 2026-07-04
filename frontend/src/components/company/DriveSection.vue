@@ -3,38 +3,10 @@
     <div class="col-12">
       <div class="card shadow h-100">
         <div class="card-body">
-          <h3 class="card-title">Drives</h3>
 
-          <div class="mt-4">
-            <h4 class="text-muted">Pending Drives</h4>
-            <div class="table-responsive" v-if="dashboard.pendingDrives.length !== 0">
-              <table class="table text-center">
-                <thead>
-                  <tr>
-                    <th>Drive ID</th>
-                    <th>Company Name</th>
-                    <th>Job Position</th>
-                    <th>Deadline</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody style="border-top: 0.1rem solid rgba(255, 255, 255, 0.2)">
-                  <tr v-for="drive in dashboard.pendingDrives" :key="drive.drive_id">
-                    <td>{{ drive.drive_id }}</td>
-                    <td>{{ drive.company_name }}</td>
-                    <td>{{ drive.job_title }}</td>
-                    <td>{{ drive.deadline }}</td>
-                    <td><button class="btn btn-success" @click="$emit('approveDrive', drive.drive_id)">Approve</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p
-              class="text-center fw-bold text-secondary my-3"
-              v-if="dashboard.pendingDrives.length === 0"
-            >
-              No pending drive approvals
-            </p>
+          <div class="d-flex justify-content-between">
+            <h3 class="card-title d-flex justify-content-between">Drives</h3>
+            <button class="btn btn-success" @click="$emit('createDrive')">Create Drive</button>
           </div>
 
           <div class="mt-4">
@@ -58,9 +30,18 @@
                     <td>{{ drive.deadline }}</td>
                     <td>
                       <div class="d-flex justify-content-center align-content-center">
-                        <button class="btn btn-dark mx-1" @click="$emit('getDrive', drive.drive_id)">view</button>
-                        <button class="btn btn-warning mx-1 text-nowrap" @click="$emit('closeDrive', drive.drive_id)">close</button>
-                        <button class="btn btn-danger mx-1" @click="$emit('blacklistDrive', drive.drive_id)">blacklist</button>
+                        <button
+                          class="btn btn-dark mx-1"
+                          @click="viewDrive(drive.drive_id)"
+                        >
+                          view
+                        </button>
+                        <button
+                          class="btn btn-warning mx-1 text-nowrap"
+                          @click="$emit('closeDrive', drive.drive_id)"
+                        >
+                          close
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -85,10 +66,46 @@
                     <th>Company Name</th>
                     <th>Job Position</th>
                     <th>Deadline</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody style="border-top: 0.1rem solid rgba(255, 255, 255, 0.2)">
                   <tr v-for="drive in dashboard.closedDrives" :key="drive.drive_id">
+                    <td>{{ drive.drive_id }}</td>
+                    <td>{{ drive.company_name }}</td>
+                    <td>{{ drive.job_title }}</td>
+                    <td>{{ drive.deadline }}</td>
+                    <td>
+                      <button class="btn btn-info" @click="updateDrive(drive.drive_id)">
+                        Update
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p
+              class="text-center fw-bold text-secondary my-3"
+              v-if="dashboard.closedDrives.length === 0"
+            >
+              No closed drive
+            </p>
+          </div>
+
+          <div class="mt-4">
+            <h4 class="text-muted">Pending Drives</h4>
+            <div class="table-responsive" v-if="dashboard.pendingDrives.length !== 0">
+              <table class="table text-center">
+                <thead>
+                  <tr>
+                    <th>Drive ID</th>
+                    <th>Company Name</th>
+                    <th>Job Position</th>
+                    <th>Deadline</th>
+                  </tr>
+                </thead>
+                <tbody style="border-top: 0.1rem solid rgba(255, 255, 255, 0.2)">
+                  <tr v-for="drive in dashboard.pendingDrives" :key="drive.drive_id">
                     <td>{{ drive.drive_id }}</td>
                     <td>{{ drive.company_name }}</td>
                     <td>{{ drive.job_title }}</td>
@@ -99,9 +116,9 @@
             </div>
             <p
               class="text-center fw-bold text-secondary my-3"
-              v-if="dashboard.closedDrives.length === 0"
+              v-if="dashboard.pendingDrives.length === 0"
             >
-              No closed drive
+              No pending drive approvals
             </p>
           </div>
 
@@ -142,5 +159,23 @@
 
 <script setup>
 import { defineProps } from 'vue'
+import { useRouter } from 'vue-router';
 defineProps(['dashboard'])
+const router = useRouter();
+
+function updateDrive(drive_id){
+  router.push({name: "updateDrive", params: {id: drive_id}})
+}
+
+function viewDrive(drive_id){
+  router.push({name: "driveDetail", params: {id: drive_id}})
+}
 </script>
+
+
+<style scoped>
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+</style>

@@ -20,18 +20,18 @@
                 </thead>
                 <tbody style="border-top: 0.1rem solid rgba(255, 255, 255, 0.2)">
                   <tr v-for="company in dashboard.pendingCompanies" :key="company.user_id">
-                    <th>{{ company.user_id }}</th>
-                    <th>{{ company.name }}</th>
-                    <th>{{ company.email }}</th>
-                    <th>{{ company.industry }}</th>
-                    <th>
+                    <td>{{ company.user_id }}</td>
+                    <td>{{ company.name }}</td>
+                    <td>{{ company.email }}</td>
+                    <td>{{ company.industry }}</td>
+                    <td>
                       <button
                         class="btn btn-success"
                         @click="$emit('approveCompany', company.user_id)"
                       >
                         Approve
                       </button>
-                    </th>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -59,18 +59,18 @@
                 </thead>
                 <tbody style="border-top: 0.1rem solid rgba(255, 255, 255, 0.2)">
                   <tr v-for="company in dashboard.approvedCompanies" :key="company.user_id">
-                    <th>{{ company.user_id }}</th>
-                    <th>{{ company.name }}</th>
-                    <th>{{ company.email }}</th>
-                    <th>{{ company.industry }}</th>
-                    <th>
+                    <td>{{ company.user_id }}</td>
+                    <td>{{ company.name }}</td>
+                    <td>{{ company.email }}</td>
+                    <td>{{ company.industry }}</td>
+                    <td>
                       <button
                         class="btn btn-danger"
                         @click="$emit('blacklistCompany', company.user_id)"
                       >
                         Blacklist
                       </button>
-                    </th>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -97,10 +97,10 @@
                 </thead>
                 <tbody style="border-top: 0.1rem solid rgba(255, 255, 255, 0.2)">
                   <tr v-for="company in dashboard.removedCompanies" :key="company.user_id">
-                    <th>{{ company.user_id }}</th>
-                    <th>{{ company.name }}</th>
-                    <th>{{ company.email }}</th>
-                    <th>{{ company.industry }}</th>
+                    <td>{{ company.user_id }}</td>
+                    <td>{{ company.name }}</td>
+                    <td>{{ company.email }}</td>
+                    <td>{{ company.industry }}</td>
                   </tr>
                 </tbody>
               </table>

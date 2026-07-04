@@ -1,7 +1,7 @@
 <template>
   <div
     class="position-fixed top-0 start-0 h-100 w-100"
-    style="background-color: rgba(0, 0, 0, 0.3); backdrop-filter: blur(5px)"
+    style="background-color: rgba(0, 0, 0, 0.3); backdrop-filter: blur(5px); z-index: 1500;"
   >
     <div class="container h-100">
       <div class="row h-100 justify-content-center align-items-center">

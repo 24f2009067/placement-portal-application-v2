@@ -11,6 +11,9 @@ import StudentProfile from '@/components/student/StudentProfile.vue'
 import CompanyDashboard from '@/components/company/CompanyDashboard.vue'
 import CompanyProfile from '@/components/company/CompanyProfile.vue'
 import { showToast } from '@/toast'
+import CreateDrive from '@/components/company/CreateDrive.vue'
+import UpdateDrive from '@/components/company/UpdateDrive.vue'
+import DriveDetail from '@/components/company/DriveDetail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -77,6 +80,34 @@ const router = createRouter({
             title: 'Company Profile - RecruitX',
           },
         },
+
+        {
+          path: 'drive/create',
+          name: 'createDrive',
+          component: CreateDrive,
+          meta: {
+            title: 'Create Drive - RecruitX',
+          },
+        },
+
+        {
+          path: 'drive/:id/update',
+          name: 'updateDrive',
+          component: UpdateDrive,
+          meta: {
+            title: 'Update Drive - RecruitX',
+          },
+        },
+
+        {
+          path: 'drive/:id',
+          name: 'driveDetail',
+          component: DriveDetail,
+          meta: {
+            title: 'Drive details - RecruitX',
+          },
+        },
+
       ],
     },
   ],

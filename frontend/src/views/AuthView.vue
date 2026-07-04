@@ -16,7 +16,7 @@
           <div class="card-body">
             <h2 class="mb-4 text-center">Register</h2>
             <form @submit.prevent="handleRegister">
-              <div class="btn-group w-100">
+              <div class="btn-group w-100 text-nowrap">
                 <input
                   type="radio"
                   class="btn-check"

@@ -403,6 +403,18 @@ with app.app_context():
             deadline=date.today() + timedelta(days=20),
             status="removed"
         ),
+        Drive(
+            company_id=companies[5].company_id,   # Amazon
+            job_title="Frontend Engineer",
+            description="Removed by admin",
+            salary=1600000,
+            eligibility_cgpa=8.0,
+            eligibility_graduation_year=2027,
+            eligibility_backlog_count=0,
+            required_skills="React",
+            deadline=date.today() + timedelta(days=25),
+            status="removed"
+        ),
     ]
 
     db.session.add_all(drives)

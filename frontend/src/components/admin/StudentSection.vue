@@ -18,10 +18,10 @@
                 </thead>
                 <tbody style="border-top: 0.1rem solid rgba(255, 255, 255, 0.2)">
                   <tr v-for="student in dashboard.approvedStudents" :key="student.user_id">
-                    <th>{{ student.user_id }}</th>
-                    <th>{{ student.name }}</th>
-                    <th>{{ student.email }}</th>
-                    <th><button class="btn btn-danger" @click="$emit('blacklistStudent', student.user_id)">Blacklist</button></th>
+                    <td>{{ student.user_id }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.email }}</td>
+                    <td><button class="btn btn-danger" @click="$emit('blacklistStudent', student.user_id)">Blacklist</button></td>
                   </tr>
                 </tbody>
               </table>
@@ -46,9 +46,9 @@
                 </thead>
                 <tbody style="border-top: 0.1rem solid rgba(255, 255, 255, 0.2)">
                   <tr v-for="student in dashboard.removedStudents" :key="student.user_id">
-                    <th>{{ student.user_id }}</th>
-                    <th>{{ student.name }}</th>
-                    <th>{{ student.email }}</th>
+                    <td>{{ student.user_id }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.email }}</td>
                   </tr>
                 </tbody>
               </table>

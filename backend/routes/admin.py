@@ -85,6 +85,7 @@ class Companies(Resource):
                     "message": "Unable to update DB"
                 }, 500
         else:
+            models.db.rollback()
             return {
                 "status": "error",
                 "message": "user not found"
@@ -107,6 +108,12 @@ class Companies(Resource):
                     for application in drive.applications:
                         application.current_status = "company_removed"
                         application_status = models.ApplicationStatus(application_id=application.application_id, status="company_removed")
+                        notification = models.Notification(
+                            student_id=application.student.student_id,
+                            title= f"{application.drive.company.name} • {application.drive.job_title}",
+                            message = f"The company {application.drive.company.name} was blacklisted by the admin."             
+                        )
+                        models.db.session.add(notification)
                         models.db.session.add(application_status)
                 models.db.session.commit()
                 return {
@@ -119,6 +126,7 @@ class Companies(Resource):
                     "message": "Unable to update DB"
                 }, 500
         else:
+            models.db.rollback()
             return {
                 "status": "error",
                 "message": "user not found"
@@ -187,6 +195,12 @@ class Students(Resource):
                 for application in student.applications:
                     application.current_status = "student_removed"
                     application_status = models.ApplicationStatus(application_id=application.application_id, status="student_removed")
+                    notification = models.Notification(
+                        student_id=application.student.student_id,
+                        title= f"{application.drive.company.name} • {application.drive.job_title}",
+                        message = f"You were blacklisted by the admin."             
+                    )
+                    models.db.session.add(notification)
                     models.db.session.add(application_status)
 
 
@@ -201,6 +215,7 @@ class Students(Resource):
                     "message": "Unable to update DB"
                 }, 500
         else:
+            models.db.rollback()
             return {
                 "status": "error",
                 "message": "user not found"
@@ -251,7 +266,8 @@ class Applications(Resource):
                applications = applications.filter(or_(
                     models.Student.name.ilike(f"%{search}%"),
                     models.Company.name.ilike(f"%{search}%"),
-                    models.Drive.job_title.ilike(f"%{search}%")
+                    models.Drive.job_title.ilike(f"%{search}%"),
+                    models.Application.current_status.ilike(f"%{search}%")
                     )
                 )
             
@@ -363,6 +379,12 @@ class Drives(Resource):
                 for application in drive.applications:
                     application.current_status = "drive_removed"
                     application_status = models.ApplicationStatus(application_id=application.application_id, status="drive_removed")
+                    notification = models.Notification(
+                        student_id=application.student.student_id,
+                        title= f"{application.drive.company.name} • {application.drive.job_title}",
+                        message = f"The drive {application.drive.job_title}, {application.drive.company.name} was blacklisted by the admin."             
+                    )
+                    models.db.session.add(notification)
                     models.db.session.add(application_status)
 
 
@@ -377,6 +399,7 @@ class Drives(Resource):
                     "message": "Unable to update DB"
                 }, 500
         else:
+            models.db.rollback()
             return {
                 "status": "error",
                 "message": "drive not found"
@@ -403,12 +426,12 @@ class Drives(Resource):
                 else:
                     return {
                         "status": "error",
-                        "message": "Operation ot specified"
+                        "message": "Operation not specified"
                     }, 400
 
                 return {
                     "status": "success",
-                    "message": f"{drive.job_title}, {drive.company.name} was {op}ed"
+                    "message": f"{drive.job_title}, {drive.company.name} was {op}d"
                 }, 200
             except Exception as e:
                 return {
@@ -416,6 +439,7 @@ class Drives(Resource):
                     "message": "Unable to update DB"
                 }, 500
         else:
+            models.db.rollback()
             return {
                 "status": "error",
                 "message": "drive not found"

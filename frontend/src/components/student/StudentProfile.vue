@@ -10,7 +10,7 @@
 
         <form @submit.prevent="handleProfileSubmit">
           <!-- Personal Information -->
-          <div class="card shadow-sm mb-4">
+          <div class="card shadow mb-4">
             <div class="card-body">
               <h5 class="card-title mb-4">Personal Information</h5>
 
@@ -92,7 +92,7 @@
           </div>
 
           <!-- Skills -->
-          <div class="card shadow-sm mb-4">
+          <div class="card shadow mb-4">
             <div class="card-body">
               <h5 class="card-title mb-3">Skills</h5>
 
@@ -107,7 +107,7 @@
           </div>
 
           <!-- Resume -->
-          <div class="card shadow-sm mb-4">
+          <div class="card shadow mb-4">
             <div class="card-body">
               <h5 class="card-title mb-3">Resume</h5>
 
@@ -209,6 +209,6 @@ function getResume(){
 
 <style scoped>
 .card{
-  border: none;
+  border: 0.2rem solid rgba(19, 19, 19, 0.5);
 }
 </style>

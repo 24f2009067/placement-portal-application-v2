@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark sticky-top border-bottom border-2 py-3 bg-body">
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top py-3 bg-body shadow" style="border-bottom: 0.3rem solid rgba(19, 19, 19, 0.9);">
     <div class="container-fluid">
       <!-- Logo -->
       <a class="navbar-brand d-flex align-items-center" href="#">

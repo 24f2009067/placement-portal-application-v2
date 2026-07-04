@@ -2,11 +2,11 @@ export async function api(url, options = {}) {
     try {
     let access_token = getAccessToken()
     let res = await fetch(url, {
+      ...options,
       headers: {
         Authorization: `Bearer ${access_token}`,
         ...(options.headers || {}),
       },
-      ...options,
     })
 
     if (res.ok) {
@@ -16,8 +16,7 @@ export async function api(url, options = {}) {
 
     throw res
   } catch (e) {
-    console.log(e)
-    throw e
+    throw await e.json()
   }
 }
 
