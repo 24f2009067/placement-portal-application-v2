@@ -1,4 +1,5 @@
 import { showToast } from "@/toast"
+import { api } from "./utility"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -69,6 +70,71 @@ export async function setProfile(formData) {
       message: 'Unable to connect to server',
       error: err,
     }
+  }
+}
+
+// dashboard
+
+export async function loadDashboard(s) {
+  try {
+    const data = await api(`${API_URL}/api/students/dashboard?search=${s}`)
+    return data.data
+  } catch (e) {
+    showToast('Student Dashboard', e.message || 'Something went wrong!')
+  }
+}
+
+export async function getCompany(user_id) {
+  try {
+    const data = await api(`${API_URL}/api/students/company/${user_id}`)
+    return data
+  } catch (e) {
+    showToast('Student Dashboard', e.message || 'Something went wrong!')
+  }
+}
+
+export async function getDrive(drive_id) {
+  try {
+    const data = await api(`${API_URL}/api/students/drives/${drive_id}`)
+    return data
+  } catch (e) {
+    showToast('Student Dashboard', e.message || 'Something went wrong!')
+  }
+}
+
+export async function applyDrive(drive_id) {
+  try {
+    const data = await api(`${API_URL}/api/students/drives/${drive_id}/applications`, {method: "POST"})
+    return data
+  } catch (e) {
+    showToast('Student Dashboard', e.message || 'Something went wrong!')
+  }
+}
+
+export async function getNotifications() {
+  try {
+    const data = await api(`${API_URL}/api/students/notifications`)
+    return data
+  } catch (e) {
+    showToast('Student Dashboard', e.message || 'Something went wrong!')
+  }
+}
+
+export async function markRead(notification_id) {
+  try {
+    const data = await api(`${API_URL}/api/students/notifications/${notification_id}/seen`, {method: "PUT"})
+    return data
+  } catch (e) {
+    showToast('Student Dashboard', e.message || 'Something went wrong!')
+  }
+}
+
+export async function getHistory() {
+  try {
+    const data = await api(`${API_URL}/api/students/history`)
+    return data
+  } catch (e) {
+    showToast('Student Dashboard', e.message || 'Something went wrong!')
   }
 }
 

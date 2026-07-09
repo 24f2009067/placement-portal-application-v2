@@ -46,7 +46,7 @@ backend/*.sqlite3
 backend/.env
 
 # resume uplads
-backend/uplads/
+backend/uploads/*
 
 # =========================
 # OS generated files

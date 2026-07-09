@@ -40,7 +40,9 @@ async function reload(s) {
   for (const k in data) {
     dashboard[k] = data[k]
   }
-  loading.value = false
+  if (data){
+    loading.value = false
+  }
 }
 
 async function handleCloseDrive(drive_id) {

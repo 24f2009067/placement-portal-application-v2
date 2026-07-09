@@ -16,7 +16,10 @@ export async function api(url, options = {}) {
 
     throw res
   } catch (e) {
-    throw await e.json()
+    if (e.json){
+      throw await e.json()
+    }
+    throw e
   }
 }
 

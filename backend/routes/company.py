@@ -186,7 +186,6 @@ class Drive(Resource):
         company = user.company
         if company:
             data = request.json
-            print(data)
             drive = models.Drive(
                     company_id=company.company_id,
                     job_title=data.get("job_title"),
@@ -263,7 +262,6 @@ class Drive(Resource):
                     
                     if action == "update":
                         data = request.json
-                        print(data)
                         drive.job_title = data['job_title']
                         drive.description = data['description']
                         drive.salary = data['salary']
@@ -422,7 +420,6 @@ class Application(Resource):
                         }, 200
                     
                     except Exception as e:
-                        print(e)
                         models.db.session.rollback()
                         return {
                             "status": "error",

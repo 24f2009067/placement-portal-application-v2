@@ -1,7 +1,7 @@
 <template>
   <div
     class="position-fixed top-0 start-0 h-100 w-100"
-    style="background-color: rgba(0, 0, 0, 0.3); backdrop-filter: blur(5px); z-index: 1500;"
+    style="background-color: rgba(0, 0, 0, 0.3); backdrop-filter: blur(5px); z-index: 1500"
   >
     <div class="container h-100">
       <div class="row h-100 justify-content-center align-items-center">
@@ -30,7 +30,10 @@
               </div>
 
               <div class="my-4">
-                <p class="text-muted fw-bold mb-2 fs-4">Eligibility</p>
+                <p class="text-muted fw-bold mb-2 fs-4">
+                  Eligibility - <span v-if="drive.eligible" class="text-success">Eligible</span>
+                  <span class="text-danger" v-else>Not Eligible</span>
+                </p>
                 <h4>Deadline: {{ drive.deadline }}</h4>
 
                 <p class="my-2">
@@ -54,6 +57,7 @@
               </div>
 
               <div class="my-4 d-flex justify-content-center gap-3">
+                <button class="btn btn-success" v-if="drive.eligible" @click="$emit('apply', drive.drive_id)">Apply</button>
                 <button class="btn btn-secondary" @click="$emit('closeDrive')">go back</button>
               </div>
             </div>

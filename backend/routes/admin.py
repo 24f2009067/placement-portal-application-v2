@@ -11,7 +11,9 @@ class Companies(Resource):
 
     @jwt_required()
     def get(self):
-        verifyRole()
+        res = verifyRole()
+        if res: return res
+
         args = request.args
         status = args.get("status")
         search = args.get("search")
@@ -61,7 +63,8 @@ class Companies(Resource):
     
     @jwt_required()
     def put(self, user_id):
-        verifyRole()
+        res = verifyRole()
+        if res: return res
         
         user = models.User.query.filter(models.User.user_id == user_id).first()
         company = user.company
@@ -93,7 +96,8 @@ class Companies(Resource):
         
     @jwt_required()
     def delete(self, user_id):
-        verifyRole()
+        res = verifyRole()
+        if res: return res
         
         user = models.User.query.filter(models.User.user_id == user_id).first()
         company = user.company
@@ -136,7 +140,8 @@ class Students(Resource):
 
     @jwt_required()
     def get(self):
-        verifyRole()
+        res = verifyRole()
+        if res: return res
 
         status = request.args.get("status")
         search = request.args.get("search")
@@ -181,7 +186,8 @@ class Students(Resource):
     
     @jwt_required()
     def delete(self, user_id):
-        verifyRole()
+        res = verifyRole()
+        if res: return res
         
         user = models.User.query.filter(models.User.user_id == user_id).first()
         student = user.student
@@ -225,7 +231,6 @@ class Applications(Resource):
 
     @jwt_required()
     def get(self, application_id=None):
-        verifyRole()
 
         if application_id is not None:
             application = models.Application.query.filter(models.Application.application_id == application_id).first()
@@ -289,7 +294,8 @@ class Drives(Resource):
 
     @jwt_required()
     def get(self, drive_id=None):
-        verifyRole()
+        res = verifyRole()
+        if res: return res
 
         if drive_id is not None:
             drive = models.Drive.query.filter(models.Drive.drive_id == drive_id).first()
@@ -366,7 +372,8 @@ class Drives(Resource):
     
     @jwt_required()
     def delete(self, drive_id, op):
-        verifyRole()
+        res = verifyRole()
+        if res: return res
         
         drive = models.Drive.query.filter(models.Drive.drive_id == drive_id).first()
         if drive:
@@ -407,7 +414,8 @@ class Drives(Resource):
         
     @jwt_required()
     def put(self, drive_id, op):
-        verifyRole()
+        res = verifyRole()
+        if res: return res
         
         drive = models.Drive.query.filter(models.Drive.drive_id == drive_id).first()
         if drive:
