@@ -7,6 +7,7 @@ import models
 import uuid
 import os
 from datetime import datetime
+import tasks
 
 student_bp = Blueprint("student", __name__, url_prefix="/api/students")
 student_api = Api(student_bp)
@@ -482,7 +483,13 @@ class History(Resource):
             "applications": applications_list
         }, 200
     
+class Report(Resource):
 
+    @jwt_required()
+    @verifyRole
+    def post(self, student):
+        id = tasks.generateStudentReport.delay(student.student_id)
+        return 200
 
 student_api.add_resource(Student, "")
 student_api.add_resource(Company, "/company/<int:user_id>")
@@ -491,3 +498,4 @@ student_api.add_resource(Application, "/drives/<int:drive_id>/applications")
 student_api.add_resource(Notifications, "/notifications", "/notifications/<int:notification_id>/seen")
 student_api.add_resource(History, "/history")
 student_api.add_resource(Dashboard, "/dashboard")
+student_api.add_resource(Report, "/report")

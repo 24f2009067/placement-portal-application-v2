@@ -160,6 +160,17 @@ export async function modifyApplication(application_id, status, interview, place
   }
 }
 
+// backend jobs
+
+export async function generateReport() {
+  try {
+    const data = await api(`${API_URL}/api/company/report`, {method: "POST"})
+    return data
+  } catch (e) {
+    showToast('Student Dashboard', e.message || 'Something went wrong!')
+  }
+}
+
 // utitities
 
 function getAccessToken() {

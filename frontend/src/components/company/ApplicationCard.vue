@@ -31,7 +31,7 @@
 
               <div class="my-3">
                 <label class="form-label" for="salary">Salary</label>
-                <input class="form-control" type="number" id="salary" v-model="placement.salary" />
+                <input class="form-control" type="number" id="salary" v-model="placement.salary" min="0"/>
               </div>
 
               <div class="my-3">
@@ -41,6 +41,7 @@
                   type="date"
                   id="joining_date"
                   v-model="placement.joining_date"
+                  :min="(new Date()).toISOString().slice(0, 10)"
                 />
               </div>
             </div>
@@ -73,6 +74,7 @@
                   type="datetime-local"
                   id="scheduled_at"
                   v-model="interview.scheduled_at"
+                  :min="(new Date()).toISOString().slice(0, 16)"
                 />
               </div>
 

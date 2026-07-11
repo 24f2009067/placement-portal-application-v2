@@ -3,6 +3,7 @@ from flask_restful import Resource, Api, reqparse
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import or_
 import models
+import tasks
 from datetime import date, datetime
 
 company_bp = Blueprint("company", __name__, url_prefix="/api/company")
@@ -442,11 +443,37 @@ class Application(Resource):
                 "status": "error",
                 "message": "company profile not complete",
             }, 404
+        
+class Report(Resource):
+
+    @jwt_required()
+    def post(self):    
+        user_id = get_jwt_identity()
+        user = models.User.query.filter(models.User.user_id == user_id).first()
+        if (user == None):
+            return {
+                "status": "error",
+                "message": "User not registered!",
+            }, 404
+        
+        company = user.company
+        if company:
+            tasks.generateCompanyReport.delay(company.company_id)
+            return 200
+    
+        else:
+            return {
+                "status": "error",
+                "message": "company profile not complete",
+            }, 404
+    
+
 
 company_api.add_resource(Company, "")
 company_api.add_resource(Dashboard, "/dashboard")
 company_api.add_resource(Drive, "/drives/<int:drive_id>/<string:action>", "/drives", "/drives/<int:drive_id>")
 company_api.add_resource(Application, "/applications/<int:application_id>/<string:status>")
+company_api.add_resource(Report, "/report")
 
 # utitlities
 

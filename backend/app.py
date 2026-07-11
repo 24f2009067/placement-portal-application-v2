@@ -4,6 +4,10 @@ from extensions import db
 from datetime import datetime, timedelta
 from flask_jwt_extended import JWTManager
 from models import *
+from workers import init_celery, celery
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from routes.auth import auth_bp
 from routes.admin import admin_bp
@@ -17,6 +21,7 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=7)
 jwt = JWTManager(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///placement_portal.db"
 db.init_app(app)
+init_celery(app)
 
 with app.app_context():
     db.create_all()

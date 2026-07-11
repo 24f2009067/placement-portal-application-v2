@@ -3,7 +3,10 @@
     <div class="col-12">
       <div class="card shadow h-100">
         <div class="card-body">
-          <h3 class="card-title">Applications</h3>
+          <div class="d-flex justify-content-between align-items-center flex-wrap">
+            <h3 class="card-title">Applications</h3>
+            <button class="btn btn-info text-nowrap" @click="handleGenerateReport">Generate Report</button>
+          </div>
           <div class="table-responsive" v-if="dashboard.applications.length !== 0">
             <table class="table text-center">
               <thead>
@@ -22,8 +25,15 @@
                   <td>{{ application.company_name }}</td>
                   <td>{{ application.job_title }}</td>
                   <td>{{ application.status }}</td>
-                  <td>{{ (new Date(application.created_on)).toLocaleString() }}</td>
-                  <td><button class="btn btn-dark" @click="$emit('getApplication', application.application_id)">view</button></td>
+                  <td>{{ new Date(application.created_on).toLocaleString() }}</td>
+                  <td>
+                    <button
+                      class="btn btn-dark"
+                      @click="$emit('getApplication', application.application_id)"
+                    >
+                      view
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -41,5 +51,15 @@
 </template>
 
 <script setup>
+import { generateReport } from '@/api/student';
+import { showToast } from '@/toast';
+
 defineProps(['dashboard'])
+
+async function handleGenerateReport() {
+  const data = await generateReport()
+  if (data) {
+    showToast("Student Dashboard", "The report will be mailed to you shortly.")
+  }
+}
 </script>

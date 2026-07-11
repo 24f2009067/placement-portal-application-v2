@@ -14,6 +14,8 @@ frontend/yarn-error.log*
 # Environment files
 frontend/.env
 frontend/.env.*
+backend/.env
+backend/.env.*
 
 # IDE files
 .vscode/
@@ -47,6 +49,9 @@ backend/.env
 
 # resume uplads
 backend/uploads/*
+
+# reports
+backend/exports/*
 
 # =========================
 # OS generated files

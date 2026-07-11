@@ -138,6 +138,17 @@ export async function getHistory() {
   }
 }
 
+// backend jobs
+
+export async function generateReport() {
+  try {
+    const data = await api(`${API_URL}/api/students/report`, {method: "POST"})
+    return data
+  } catch (e) {
+    showToast('Student Dashboard', e.message || 'Something went wrong!')
+  }
+}
+
 // utitities
 
 function getAccessToken() {

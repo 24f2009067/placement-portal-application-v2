@@ -4,7 +4,7 @@
       <div class="card shadow h-100">
         <div class="card-body">
 
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-between flex-wrap">
             <h3 class="card-title d-flex justify-content-between">Drives</h3>
             <button class="btn btn-success" @click="$emit('createDrive')">Create Drive</button>
           </div>
@@ -174,8 +174,4 @@ function viewDrive(drive_id){
 
 
 <style scoped>
-table {
-    table-layout: fixed;
-    width: 100%;
-}
 </style>

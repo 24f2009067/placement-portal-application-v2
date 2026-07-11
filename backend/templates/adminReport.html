@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+            crossorigin="anonymous"
+        />
+
+        <style>
+            p {
+                color: rgb(222, 226, 230, 0.75);
+            }
+        </style>
+        <title>Monthly report - {{ today }}</title>
+    </head>
+    <body data-bs-theme="dark">
+        <div class="container py-4">
+            <h1 class="text-center">Placement Portal Application</h1>
+            <h2 class="text-center text-muted">Monthly report - {{ today }}</h2>
+
+            <div class="row gx-3 gy-3 my-5">
+                <div class="col-12 col-md-3">
+                    <div class="card h-100 shadow p-2">
+                        <h3 class="text-center card-title mb-3">Student</h3>
+                        <p>Added: {{ added_students }}</p>
+                        <p>Blacklisted: {{ blacklisted_students }}</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="card h-100 shadow p-2">
+                        <h3 class="text-center card-title mb-3">Company</h3>
+                        <p>Added: {{ added_companies }}</p>
+                        <p>Blacklisted: {{ blacklisted_companies }}</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="card h-100 shadow p-2">
+                        <h3 class="text-center card-title mb-3">Drives</h3>
+                        <p>Added: {{ added_drives }}</p>
+                        <p>Closed: {{ closed_drives }}</p>
+                        <p>Blacklisted: {{ blacklisted_drives }}</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="card h-100 shadow p-2">
+                        <h3 class="text-center card-title mb-3">
+                            Applications
+                        </h3>
+                        <p>Applied: {{ added_applications }}</p>
+                        <p>Shortlisted: {{ shortlisted_applications }}</p>
+                        <p>Selected: {{ selected_applications }}</p>
+                        <p>Rejected: {{ rejected_applications }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row gx-3 gy-3" my-3>
+                <h3 class="text-center">Analysis</h3>
+                <div class="col-12 col-md-6">
+                    <div class="card h-100 shadow p-2">
+                        <h4 class="text-center mb-4">Users</h4>
+                        <p>
+                            Percentage of students Blacklisted: {{ (100 *
+                            blacklisted_students) / (added_students if
+                            added_students else 1) }} %
+                        </p>
+                        <p>
+                            Percentage of Companies Blacklisted: {{ (100 *
+                            blacklisted_companies) / (added_companies if
+                            added_companies else 1) }} %
+                        </p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="card h-100 shadow p-2">
+                        <h4 class="text-center mb-4">Applications</h4>
+                        <p>
+                            Percentage of applications Shortlisted: {{ (100 *
+                            shortlisted_applications) / (added_applications if
+                            added_applications else 1) }} %
+                        </p>
+                        <p>
+                            Percentage of applications Selected: {{ (100 *
+                            selected_applications) / (added_applications if
+                            added_applications else 1) }} %
+                        </p>
+                        <p>
+                            Percentage of applications Rejected: {{ (100 *
+                            rejected_applications) / (added_applications if
+                            added_applications else 1) }} %
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
