@@ -3,12 +3,14 @@ from flask_restful import Resource, Api
 import models
 from sqlalchemy import or_
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from init_cache import cache
 
 admin_bp = Blueprint("admin", __name__, url_prefix="/api/admin")
 admin_api = Api(admin_bp)
     
 class Companies(Resource):
 
+    @cache.cached(query_string=True)
     @jwt_required()
     def get(self):
         res = verifyRole()
@@ -138,6 +140,7 @@ class Companies(Resource):
 
 class Students(Resource):
 
+    @cache.cached(query_string=True)
     @jwt_required()
     def get(self):
         res = verifyRole()
@@ -229,6 +232,7 @@ class Students(Resource):
     
 class Applications(Resource):
 
+    @cache.cached(query_string=True)
     @jwt_required()
     def get(self, application_id=None):
 
@@ -292,6 +296,7 @@ class Applications(Resource):
     
 class Drives(Resource):
 
+    @cache.cached(query_string=True)
     @jwt_required()
     def get(self, drive_id=None):
         res = verifyRole()

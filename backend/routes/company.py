@@ -5,6 +5,7 @@ from sqlalchemy import or_
 import models
 import tasks
 from datetime import date, datetime
+from init_cache import cache
 
 company_bp = Blueprint("company", __name__, url_prefix="/api/company")
 company_api = Api(company_bp)
@@ -17,6 +18,7 @@ company_parser.add_argument("website", type=str, required=True)
 
 class Company(Resource):
 
+    @cache.cached(query_string=True)
     @jwt_required()
     def get(self):
         user_id = get_jwt_identity()
@@ -87,6 +89,7 @@ class Company(Resource):
     
 class Dashboard(Resource):
 
+    @cache.cached(query_string=True)
     @jwt_required()
     def get(self):
         user_id = get_jwt_identity()
@@ -293,6 +296,7 @@ class Drive(Resource):
                 "message": "company profile not complete",
             }, 404
         
+    @cache.cached(query_string=True)
     @jwt_required()
     def get(self, drive_id):
         user_id = get_jwt_identity()

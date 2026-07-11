@@ -8,6 +8,7 @@ import uuid
 import os
 from datetime import datetime
 import tasks
+from init_cache import cache
 
 student_bp = Blueprint("student", __name__, url_prefix="/api/students")
 student_api = Api(student_bp)
@@ -42,6 +43,7 @@ def checkEligibility(student, drive):
 class Student(Resource):
 
 # Get student profile
+    @cache.cached(query_string=True)
     @jwt_required()
     def get(self):
         user_id = get_jwt_identity()
@@ -173,6 +175,7 @@ def get_resume(id):
 
 class Dashboard(Resource):
 
+    @cache.cached(query_string=True)
     @jwt_required()
     @verifyRole
     def get(self, student):
@@ -231,6 +234,7 @@ class Dashboard(Resource):
     
 class Company(Resource):
 
+    @cache.cached(query_string=True)
     @jwt_required()
     @verifyRole
     def get(self, student, user_id):
@@ -270,6 +274,7 @@ class Company(Resource):
             
 class Drives(Resource):
 
+    @cache.cached(query_string=True)
     @jwt_required()
     @verifyRole
     def get(self, student, drive_id=None):
@@ -377,6 +382,7 @@ class Application(Resource):
 
 class Notifications(Resource):
 
+    @cache.cached(query_string=True)
     @jwt_required()
     @verifyRole
     def get(self, student):
@@ -431,6 +437,7 @@ class Notifications(Resource):
         
 class History(Resource):
 
+    @cache.cached(query_string=True)
     @jwt_required()
     @verifyRole
     def get(self, student):

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 from extensions import db
 from datetime import datetime, timedelta
@@ -6,6 +6,7 @@ from flask_jwt_extended import JWTManager
 from models import *
 from workers import init_celery, celery
 from dotenv import load_dotenv
+from init_cache import setup_cache, cache
 
 load_dotenv()
 
@@ -21,7 +22,16 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=7)
 jwt = JWTManager(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///placement_portal.db"
 db.init_app(app)
+
+# celery
 init_celery(app)
+
+# caching
+setup_cache(app)
+@app.before_request
+def clearCache():
+    if request.method in ["POST", "PUT", "DELETE"]:
+        cache.clear()
 
 with app.app_context():
     db.create_all()
