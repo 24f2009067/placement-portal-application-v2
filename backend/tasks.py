@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 import smtplib
 from email.message import EmailMessage
 from flask import render_template
+import calendar
 
 MAIL_USERNAME = os.getenv("MAIL_USERNAME")
 MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
@@ -230,6 +231,7 @@ def placementReport():
   rendered_html = render_template(
     "adminReport.html", 
     today=today.date(),
+    month = calendar.month_name[start_of_prev_month.month],
     added_students=added_students,
     blacklisted_students=blacklisted_students,
 

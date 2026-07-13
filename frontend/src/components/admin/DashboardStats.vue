@@ -123,3 +123,13 @@ const totalStudents = computed(() => {
   return props.dashboard.approvedStudents.length + props.dashboard.removedStudents.length
 })
 </script>
+
+<style scoped>
+.card {
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+</style>

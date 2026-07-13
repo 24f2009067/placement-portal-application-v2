@@ -73,7 +73,7 @@ class Company(Resource):
             company.name = name
             company.industry = industry
             company.location = location
-            company.webste = website
+            company.website = website
 
             models.db.session.commit()
 
