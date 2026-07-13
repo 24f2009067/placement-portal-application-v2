@@ -13,9 +13,7 @@ frontend/yarn-error.log*
 
 # Environment files
 frontend/.env
-frontend/.env.*
 backend/.env
-backend/.env.*
 
 # IDE files
 .vscode/

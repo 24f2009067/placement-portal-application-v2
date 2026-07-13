@@ -122,7 +122,8 @@ npm run dev
 ## Project Structure
 
 ```
-placement-portal-application-v2/
+placement-portal-application-v2
+├── Appdev 2 project report.pdf
 ├── backend
 │   ├── app.py
 │   ├── celerybeat-schedule
@@ -203,7 +204,7 @@ placement-portal-application-v2/
 │   └── vite.config.js
 └── README.md
 
-16 directories, 64 files
+16 directories, 65 files
 ```
 
 ## Author
